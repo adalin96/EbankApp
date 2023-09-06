@@ -12,7 +12,7 @@ const FirstTimeInquiry = ({navigation}) => {
       <View style={styles.topSection}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('LoginV2');
+            navigation.navigate('Login');
           }}>
           <Icon name="arrow-back" size={24} color="#6bb463" />
         </TouchableOpacity>
@@ -101,7 +101,7 @@ const FirstTimeInquiry = ({navigation}) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate('LoginV2');
+            navigation.navigate('Login');
           }}>
           <Text>J'ai compris</Text>
         </TouchableOpacity>

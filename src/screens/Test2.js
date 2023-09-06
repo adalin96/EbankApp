@@ -38,19 +38,11 @@ const Test = () => {
           </View>
         </TouchableOpacity>
         {showOptions && (
-          <PanGestureHandler
-            onGestureEvent={onGestureEvent}
-            onHandlerStateChange={({nativeEvent}) => {
-              if (nativeEvent.oldState === State.ACTIVE) {
-                setShowOptions(false);
-                translateY.setValue(0);
-              }
-            }}>
-            <Animated.View
-              style={{
-                ...styles.optionContainer,
-                transform: [{translateY: translateY}],
-              }}>
+          <View style={{
+            // remove position: 'absolute',
+            backgroundColor: '#fff',
+            maxHeight: 200, // or however big you want it
+          }}>
               {options.map((option, index) => (
                 <TouchableOpacity
                   key={index}
@@ -62,7 +54,7 @@ const Test = () => {
                 </TouchableOpacity>
               ))}
             </Animated.View>
-          </PanGestureHandler>
+        </View>
         )}
       </View>
     </GestureHandlerRootView>

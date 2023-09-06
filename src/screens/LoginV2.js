@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Alert,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import EyeIcon from 'react-native-vector-icons/FontAwesome';
@@ -16,7 +17,9 @@ import EnvelopeIcon from 'react-native-vector-icons/Ionicons';
 import LockIcon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({navigation, route}) {
+  const {showPopup} = route.params || {};
+
   useEffect(() => {
     const loadUserId = async () => {
       const savedUserId = await AsyncStorage.getItem('userId');
@@ -25,7 +28,15 @@ export default function LoginScreen({navigation}) {
       }
     };
     loadUserId();
-  }, []);
+    if (showPopup) {
+      Alert.alert(
+        'Succès',
+        'Demande envoyée',
+        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+        {cancelable: false},
+      );
+    }
+  }, [showPopup]);
 
   const [wasRedirected, setWasRedirected] = useState(false);
 
@@ -98,7 +109,10 @@ export default function LoginScreen({navigation}) {
   const [enteredPassword, setEnteredPassword] = useState('');
 
   const handleLogin = () => {
-    if (enteredId === '889885855954485599' && enteredPassword === '1234') {
+    if (
+      (enteredId === '889885855954485599' && enteredPassword === '1234') ||
+      (enteredId === 'Test' && enteredPassword === '1234')
+    ) {
       setWasRedirected(true);
       // Navigate to Dashboard
       navigation.navigate('Dashboard');

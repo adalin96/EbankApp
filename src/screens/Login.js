@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Alert,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import EyeIcon from 'react-native-vector-icons/FontAwesome';
@@ -16,7 +17,9 @@ import EnvelopeIcon from 'react-native-vector-icons/Ionicons';
 import LockIcon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({navigation, route}) {
+  const {showPopup} = route.params || {};
+
   useEffect(() => {
     const loadUserId = async () => {
       const savedUserId = await AsyncStorage.getItem('userId');
@@ -25,7 +28,15 @@ export default function LoginScreen({navigation}) {
       }
     };
     loadUserId();
-  }, []);
+    if (showPopup) {
+      Alert.alert(
+        'Succès',
+        'Demande envoyée',
+        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+        {cancelable: false},
+      );
+    }
+  }, [showPopup]);
 
   const toggleSwitch = async () => {
     setSwitchEnabled(!isSwitchEnabled);
@@ -82,7 +93,7 @@ export default function LoginScreen({navigation}) {
       <LinearGradient
         colors={['#6ec65a', '#509141']}
         style={styles.linearGradient}>
-        <Text style={styles.title}>CDG CAPITAL</Text>
+        <Text style={styles.title}>CDG CAPITAL V1</Text>
 
         <View style={styles.container}>
           <Text style={styles.subtitle}>
@@ -130,9 +141,6 @@ export default function LoginScreen({navigation}) {
               </View>
             </ScrollView>
           )}
-
-
-
 
           {!firstInputValid && (
             <Text style={{color: '#ba0001', marginBottom: 10}}>
@@ -193,7 +201,11 @@ export default function LoginScreen({navigation}) {
           <Text style={[styles.whiteText, {marginBottom: 10}]}>
             AVEZ-VOUS BESOIN D'ASSISTANCE?
           </Text>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('FirstTimeInquiry');
+            }}>
             <View style={styles.iconContainer}>
               <QuestionIcon name="help-circle-outline" size={19} />
             </View>
@@ -213,7 +225,11 @@ export default function LoginScreen({navigation}) {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('ContactCDG');
+            }}>
             <View style={styles.iconContainer}>
               <EnvelopeIcon name="mail-outline" size={18} />
             </View>

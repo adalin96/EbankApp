@@ -1,84 +1,87 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, TextInput, Animated} from 'react-native';
-import {PanGestureHandler, State} from 'react-native-gesture-handler';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet,
+} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import IconDate from 'react-native-vector-icons/FontAwesome';
 
-const Test = () => {
-  const [showOptions, setShowOptions] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+const Test = ({navigation}) => {
+  const [date, setDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
 
-  const translateY = new Animated.Value(0);
-
-  const options = ['Option 1', 'Option 2', 'Option 3'];
-
-  const onGestureEvent = Animated.event(
-    [
-      {
-        nativeEvent: {
-          translationY: translateY,
-        },
-      },
-    ],
-    {
-      useNativeDriver: true,
-    },
-  );
+  const onDateChange = (event, selectedDate) => {
+    setShowPicker(false);
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
 
   return (
-    <GestureHandlerRootView>
-      <View style={{marginTop: 100}}>
-        <TouchableOpacity onPress={() => setShowOptions(!showOptions)}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TextInput
-              editable={false}
-              value={selectedOption}
-              placeholder="Select an option"
-            />
-            <Text>↓</Text>
-          </View>
+    <View style={styles.container}>
+      <View
+        style={[
+          styles.input,
+          {
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+        ]}>
+        <TextInput
+          style={{backgroundColor: 'red', width: '26%'}}
+          placeholder="Choisissez une date"
+          value={date.toLocaleDateString()}
+          editable={false}
+        />
+        <Text style={styles.asterisk}>*</Text>
+        <TouchableOpacity
+          style={styles.iconDateContainer}
+          onPress={() => setShowPicker(true)}>
+          <IconDate name="calendar" size={24} color="#900" />
         </TouchableOpacity>
-        {showOptions && (
-          <PanGestureHandler
-            onGestureEvent={onGestureEvent}
-            onHandlerStateChange={({nativeEvent}) => {
-              if (nativeEvent.oldState === State.ACTIVE) {
-                setShowOptions(false);
-                translateY.setValue(0);
-              }
-            }}>
-            <Animated.View
-              style={{
-                ...styles.optionContainer,
-                transform: [{translateY: translateY}],
-              }}>
-              {options.map((option, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    setSelectedOption(option);
-                    setShowOptions(false);
-                  }}>
-                  <Text>{option}</Text>
-                </TouchableOpacity>
-              ))}
-            </Animated.View>
-          </PanGestureHandler>
-        )}
       </View>
-    </GestureHandlerRootView>
+      {showPicker && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={'date'}
+          display="default"
+          onChange={onDateChange}
+        />
+      )}
+    </View>
   );
 };
 
-const styles = {
-  optionContainer: {
-    position: 'absolute',
-    backgroundColor: '#fff',
-    zIndex: 1000,
-    top: 50,
-    left: 0,
-    right: 0,
-    maxHeight: 200, // or however big you want it
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-};
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingLeft: 10,
+    paddingRight: 5,
+  },
+  textInput: {
+    flex: 1,
+  },
+  asterisk: {
+    color: 'red',
+    marginRight: 20,
+  },
+  iconDateContainer: {
+    padding: 5,
+  },
+});
 
 export default Test;

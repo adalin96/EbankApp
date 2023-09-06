@@ -7,8 +7,11 @@ import DashboardComptesEspece from '../screens/DashboardComptesEspece';
 import DashboardComptesTitre from '../screens/DashboardComptesTitre';
 import LoginV2 from '../screens/LoginV2'
 import FirstTimeInquiry from '../screens/FirstTimeInquiry'
-import test from '../screens/test'
 import ContactCDG from '../screens/ContactCDG';
+import Test3 from '../screens/Test3';
+import Test4 from '../screens/Test4';
+
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -18,7 +21,8 @@ const Navigation = () => {
         initialRouteName="ContactCDG"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="test" component={test} />
+        <Stack.Screen name="Test3" component={Test3} />
+        <Stack.Screen name="Test4" component={Test4} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="LoginV2" component={LoginV2} />
         <Stack.Screen name="FirstTimeInquiry" component={FirstTimeInquiry} />
