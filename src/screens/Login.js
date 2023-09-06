@@ -215,7 +215,11 @@ export default function LoginScreen({navigation, route}) {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('ModifierMdpInquiry');
+            }}>
             <View style={styles.iconContainer}>
               <LockIcon name="lock-closed-outline" size={18} />
             </View>

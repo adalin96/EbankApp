@@ -1,32 +1,44 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/Login';
-import HomeScreen from '../screens/HomeScreen';
 import DashboardComptesEspece from '../screens/DashboardComptesEspece';
 import DashboardComptesTitre from '../screens/DashboardComptesTitre';
-import LoginV2 from '../screens/LoginV2'
-import FirstTimeInquiry from '../screens/FirstTimeInquiry'
+import FirstTimeInquiry from '../screens/FirstTimeInquiry';
 import ContactCDG from '../screens/ContactCDG';
-import Test3 from '../screens/Test3';
-import Test4 from '../screens/Test4';
 
+import ModifierMdpInquiry from '../screens/ModifierMdpInquiry';
+import LoadingScreen from '../screens/LoadingScreen';
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate a network request to show the loading screen for 5 seconds
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ContactCDG"
+        initialRouteName="Login"
         screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Test3" component={Test3} />
-        <Stack.Screen name="Test4" component={Test4} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="LoginV2" component={LoginV2} />
+        <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
         <Stack.Screen name="FirstTimeInquiry" component={FirstTimeInquiry} />
         <Stack.Screen name="ContactCDG" component={ContactCDG} />
+        <Stack.Screen
+          name="ModifierMdpInquiry"
+          component={ModifierMdpInquiry}
+        />
         <Stack.Screen
           name="DashboardCmptEspc"
           component={DashboardComptesEspece}

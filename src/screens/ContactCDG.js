@@ -86,9 +86,11 @@ const ContactCDG = ({navigation}) => {
         Nom !== '' &&
         Prenom !== '' &&
         Email !== '' &&
-        Tel !== '',
+        isEmailValid &&
+        Tel !== '' &&
+        isTelValid
     );
-  }, [objetDemande, Nom, Prenom, Email, Tel]);
+  }, [objetDemande, Nom, Prenom, Email, Tel, isTelValid, isEmailValid]);
 
   return (
     <View style={styles.container}>
