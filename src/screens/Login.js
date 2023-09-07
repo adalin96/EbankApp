@@ -11,13 +11,13 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import EyeIcon from 'react-native-vector-icons/FontAwesome';
-// import EnvelopeIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import QuestionIcon from 'react-native-vector-icons/Ionicons';
 import EnvelopeIcon from 'react-native-vector-icons/Ionicons';
 import LockIcon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({navigation, route}) {
+  //this is used for when the user is in a UI that had a button "Envoyer Demande"
   const {showPopup} = route.params || {};
 
   useEffect(() => {
@@ -28,6 +28,7 @@ export default function LoginScreen({navigation, route}) {
       }
     };
     loadUserId();
+    //this is used for when the user is in a UI that had a button "Envoyer Demande"
     if (showPopup) {
       Alert.alert(
         'Succès',
@@ -113,13 +114,13 @@ export default function LoginScreen({navigation, route}) {
               styles.input,
               {width: '100%'},
               !firstInputValid
-                ? {borderColor: '#ba0001', borderWidth: 1.5}
+                ? {borderColor: '#ba0001', borderWidth: 0.95}
                 : {},
             ]}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setShowSuggestions(false)}
           />
-          {showSuggestions && (
+          {/* {showSuggestions && (
             <ScrollView
               style={{maxHeight: 100, borderWidth: 1, borderColor: 'grey'}}>
               <View style={{backgroundColor: 'white'}}>
@@ -140,10 +141,16 @@ export default function LoginScreen({navigation, route}) {
                 ))}
               </View>
             </ScrollView>
-          )}
+          )} */}
 
           {!firstInputValid && (
-            <Text style={{color: '#ba0001', marginBottom: 10}}>
+            <Text
+              style={{
+                color: '#ba0001',
+                marginBottom: 25,
+                marginRight: 200,
+                fontWeight: 300,
+              }}>
               Champ obligatoire
             </Text>
           )}
@@ -155,7 +162,6 @@ export default function LoginScreen({navigation, route}) {
               style={(styles.input, {width: '90%'})}
             />
             {/* Insert your icon to toggle password visibility here */}
-            {/* </View> */}
             <TouchableOpacity onPress={togglePasswordVisibility}>
               <EyeIcon
                 name={isPasswordVisible ? 'eye' : 'eye-slash'}

@@ -9,6 +9,7 @@ import ContactCDG from '../screens/ContactCDG';
 
 import ModifierMdpInquiry from '../screens/ModifierMdpInquiry';
 import LoadingScreen from '../screens/LoadingScreen';
+import Notif from '../screens/Notif';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,9 +30,10 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="DashboardCmptEspc"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Notif" component={Notif} />
         <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
         <Stack.Screen name="FirstTimeInquiry" component={FirstTimeInquiry} />
         <Stack.Screen name="ContactCDG" component={ContactCDG} />

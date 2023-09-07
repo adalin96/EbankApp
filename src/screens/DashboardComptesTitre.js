@@ -86,9 +86,13 @@ const DashboardComptesEspece = ({navigation}) => {
     <SafeAreaView style={{flex: 1, backgroundColor: '#fafcff'}}>
       <LinearGradient colors={['#519342', '#6ec65a']} style={styles.header}>
         <View style={styles.firstRow}>
-          <View style={styles.iconContainer}>
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => {
+              navigation.navigate('Notif');
+            }}>
             <IconBell name="bell" size={22} color="#fff" />
-          </View>
+          </TouchableOpacity>
           <Text style={styles.headerTitle}>Tableau de bord</Text>
           <View style={{width: 45}} />
         </View>
